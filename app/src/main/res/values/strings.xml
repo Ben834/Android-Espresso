@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TestingSandBox</string>
-    <string name="main_hello">Testing sandbox</string>
+
+    <string name="activity_main_display_btn">Increment button</string>
+    <string name="default_count">0</string>
+
 </resources>
