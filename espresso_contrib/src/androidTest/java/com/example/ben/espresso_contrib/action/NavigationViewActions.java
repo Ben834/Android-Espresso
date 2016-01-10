@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ben.testingsandbox.custom.action;
+package com.example.ben.espresso_contrib.action;
 
 import android.content.res.Resources.NotFoundException;
 import android.support.design.widget.NavigationView;
