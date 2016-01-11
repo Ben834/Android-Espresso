@@ -10,6 +10,9 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
+        //Sets the instrumentation runner. See http://developer.android.com/reference/android/support/test/runner/AndroidJUnitRunner.html
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -24,13 +27,14 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
 
     //Espresso//
     //Core
     androidTestCompile "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
-    //Contains few additional, useful features for RecyclerViews and NavigationDrawer.
-   androidTestCompile "com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion"
     androidTestCompile 'com.android.support.test:runner:0.4.1'
+    //Contains few additional, useful features for RecyclerViews and NavigationDrawer.
+    androidTestCompile "com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion"
 
     // Force usage of support annotations in the test app, since it is internally used by the runner module.
     androidTestCompile 'com.android.support:support-annotations:23.1.1'
