@@ -5,6 +5,7 @@ import android.app.Instrumentation;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
@@ -25,6 +26,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
+//TODO: Write a test to verify that a particular outgoing intent is launched with the right extras.
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class ContactPickerActivityTest {
@@ -43,19 +45,11 @@ public class ContactPickerActivityTest {
      * the {@link ActivityTestRule#getActivity()} method.
      */
     @Rule
-    public final ActivityTestRule<ContactPickerActivity> mActivityRule = new ActivityTestRule<>(ContactPickerActivity.class);
+    public final IntentsTestRule<ContactPickerActivity> mActivityRule = new IntentsTestRule<>(ContactPickerActivity.class);
 
 
     @Before
     public void stubContactIntent(){
-        //We could stubb the contact intent here
-    }
-
-    /**
-     * Intent stubbing example. We provide a fake response for the pick contact activity.
-     */
-    @Test
-    public void activityResultContact_IsHandledProperly(){
         //We build the fake result
         Intent resultData = new Intent();
         resultData.setData(Uri.parse(TEST_URI));
@@ -65,8 +59,15 @@ public class ContactPickerActivityTest {
         // Set up result stubbing when an intent sent to "contacts" is seen.
         intending(allOf(
                 hasData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI),
-                hasAction(Intent.ACTION_PICK))).respondWith(activityResult);
+                hasAction(Intent.ACTION_PICK)))
+                .respondWith(activityResult);
+    }
 
+    /**
+     * Intent stubbing example. We provide a fake response for the pick contact activity.
+     */
+    @Test
+    public void activityResultContact_IsHandledProperly(){
         //User action opening the contact. Launching activity expects an URI to be returned and the
         //phone number to be displayed
         onView(withId(R.id.activity_main_pick)).perform(click());
