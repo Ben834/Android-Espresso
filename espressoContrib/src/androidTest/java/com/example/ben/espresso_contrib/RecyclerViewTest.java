@@ -1,5 +1,6 @@
 package com.example.ben.espresso_contrib;
 
+import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.test.ActivityInstrumentationTestCase2;
