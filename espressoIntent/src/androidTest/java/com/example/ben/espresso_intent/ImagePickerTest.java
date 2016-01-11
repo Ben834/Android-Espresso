@@ -3,11 +3,10 @@ package com.example.ben.espresso_intent;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
-import android.net.Uri;
-import android.provider.ContactsContract;
+import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 
@@ -15,31 +14,28 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intending;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasData;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
+import static com.example.ben.espresso_intent.matcher.ImageViewHasDrawableMatcher.hasDrawable;
+import static org.hamcrest.Matchers.not;
 
-//TODO: Write a test to verify that a particular outgoing intent is launched with the right extras.
-@RunWith(AndroidJUnit4.class)
+@RunWith(JUnit4.class)
 @LargeTest
-public class ContactPickerActivityTest {
-
-    private final static String TEST_URI = "foo://bar?q=123";
+public class ImagePickerTest {
 
     /**
      * A JUnit {@link Rule @Rule} to launch your activity under test. This is a replacement
      * for {@link ActivityInstrumentationTestCase2}.
-     * <p>
+     * <p/>
      * Rules are interceptors which are executed for each test method and will run before
      * any of your setup code in the {@link Before @Before} method.
-     * <p>
+     * <p/>
      * {@link ActivityTestRule} will create and launch of the activity for you and also expose
      * the activity under test. To get a reference to the activity you can use
      * the {@link ActivityTestRule#getActivity()} method.
@@ -47,33 +43,30 @@ public class ContactPickerActivityTest {
     @Rule
     public final IntentsTestRule<ContactPickerActivity> mActivityRule = new IntentsTestRule<>(ContactPickerActivity.class);
 
-
     @Before
-    public void stubContactIntent(){
-        //We build the fake result
+    public void stubPictureIntent() {
+        //Fake result
         Intent resultData = new Intent();
-        resultData.setData(Uri.parse(TEST_URI));
+        resultData.putExtra(ContactPickerActivity.KEY_IMAGE_DATA, BitmapFactory.decodeResource(
+                mActivityRule.getActivity().getResources(), R.mipmap.ic_launcher));
         Instrumentation.ActivityResult activityResult
                 = new Instrumentation.ActivityResult(Activity.RESULT_OK, resultData);
 
         // Set up result stubbing when an intent sent to "contacts" is seen.
-        intending(allOf(
-                hasData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI),
-                hasAction(Intent.ACTION_PICK)))
-                .respondWith(activityResult);
+        intending(hasAction(MediaStore.ACTION_IMAGE_CAPTURE)).respondWith(activityResult);
     }
 
-    /**
-     * Intent stubbing example. We provide a fake response for the pick contact activity.
-     */
     @Test
-    public void activityResultContact_IsHandledProperly(){
-        //User action opening the contact. Launching activity expects an URI to be returned and the
-        //phone number to be displayed
-        onView(withId(R.id.activity_main_pick)).perform(click());
+    public void takePhoto_drawableIsApplied() {
+        //Check that the imageview doesn't have a drawable applied
+        onView(withId(R.id.activity_main_picture_pick)).check(matches(not(hasDrawable())));
 
-        //We assert that the data is well displayed
-        onView(withId(R.id.activity_main_contact_uri)).check(matches(withText(TEST_URI)));
+        //Click on the button
+        onView(withId(R.id.activity_main_picture_pick)).perform(click());
+
+        //Check that the image has a drawable
+        onView(withId(R.id.activity_main_picture_pick)).check(matches(hasDrawable()));
+
     }
 
 }

@@ -1,1 +1,1 @@
-include ':espresso_basics', ':espresso_intent', ':espresso_idling_ressource', ':espresso_contrib'
+include ':espressoBasics', ':espressoIntent', ':espressoIdlingRessource', ':espressoContrib'
