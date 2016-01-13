@@ -23,7 +23,7 @@ public class IntentServiceIdlingResource implements IdlingResource {
 
     @Override
     public boolean isIdleNow() {
-        boolean idle = isIntentServiceRunning();
+        boolean idle = !isIntentServiceRunning();
         if (idle && resourceCallback != null) {
             resourceCallback.onTransitionToIdle();
         }
@@ -31,7 +31,7 @@ public class IntentServiceIdlingResource implements IdlingResource {
     }
 
     @Override
-    public void registerIdleTransitionCallback(ResourceCallback callback) {
+         public void registerIdleTransitionCallback(ResourceCallback callback) {
         this.resourceCallback = callback;
     }
 
@@ -43,7 +43,7 @@ public class IntentServiceIdlingResource implements IdlingResource {
     private boolean isIntentServiceRunning() {
         ActivityManager manager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo runningServiceInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (SimpleIntentService.class.getName().equalsIgnoreCase(runningServiceInfo.getClass().getName())) {
+            if (SimpleIntentService.class.getName().equalsIgnoreCase(runningServiceInfo.service.getClassName())) {
                 return true;
             }
         }

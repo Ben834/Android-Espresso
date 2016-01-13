@@ -1,9 +1,8 @@
 package com.example.ben.espresso_contrib;
 
-import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.rule.ActivityTestRule;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.suitebuilder.annotation.LargeTest;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -12,15 +11,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(JUnit4.class)
-@LargeTest
-public class RecyclerViewTest {
+public class DrawerTest {
 
     /**
      * A JUnit {@link Rule @Rule} to launch your activity under test. This is a replacement
@@ -36,21 +30,8 @@ public class RecyclerViewTest {
     @Rule
     public final ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
-    /**
-     * Test that the list is long enough for this sample, the last item shouldn't appear.
-     */
     @Test
-    public void lastItem_NotDisplayed() {
-        // Last item should not exist if the list wasn't scrolled down.
-        onView(withText(MainActivity.NB_COMMENTS - 1)).check(doesNotExist());
-    }
-
-    @Test
-    public void testItemClick() {
-        //Click on an item
-        onView(withId(R.id.activity_main_recycler_view))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(50, click()));
-        //Verify that the right item is displayed
-        onView(withId(R.id.activity_main_row_clicked)).check(matches(withText(50)));
+    public void navDrawerClick() {
+//        onView(withId(R.id.activity_main_drawer_layout)).perform(DrawerActions.open());
     }
 }

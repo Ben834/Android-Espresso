@@ -2,9 +2,12 @@ package com.example.ben.espresso_contrib;
 
 import android.os.Bundle;
 import android.support.annotation.VisibleForTesting;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Drawer
+        ListView drawerList = (ListView) findViewById(R.id.activity_main_left_drawer);
+        drawerList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new String[]{"Home", "Profile"}));
+
+        //Content
         final TextView textView = (TextView) findViewById(R.id.activity_main_row_clicked);
         CommentAdapter commentAdapter = new CommentAdapter(new CommentAdapter.OnItemClickListener() {
             @Override

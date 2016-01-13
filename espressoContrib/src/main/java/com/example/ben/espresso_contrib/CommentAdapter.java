@@ -32,7 +32,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
         holder.name.setText(comment.getName());
         holder.content.setText(comment.getDescription());
         if(mOnItemClickListener != null){
-            holder.content.setOnClickListener(new View.OnClickListener() {
+            holder.container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mOnItemClickListener.onItemClick(position);

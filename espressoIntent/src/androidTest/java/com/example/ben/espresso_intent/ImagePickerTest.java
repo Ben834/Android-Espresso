@@ -52,7 +52,7 @@ public class ImagePickerTest {
         Instrumentation.ActivityResult activityResult
                 = new Instrumentation.ActivityResult(Activity.RESULT_OK, resultData);
 
-        // Set up result stubbing when an intent sent to "contacts" is seen.
+        // Set up result stubbing
         intending(hasAction(MediaStore.ACTION_IMAGE_CAPTURE)).respondWith(activityResult);
     }
 
