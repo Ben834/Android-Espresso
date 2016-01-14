@@ -1,13 +1,14 @@
 package com.example.ben.espresso_contrib;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.VisibleForTesting;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,8 +32,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Drawer
-        ListView drawerList = (ListView) findViewById(R.id.activity_main_left_drawer);
-        drawerList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new String[]{"Home", "Profile"}));
+        final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_drawer_layout);
+
+        //Navigation view
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.activity_main_navigation_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                if(item.getItemId() == R.id.drawer_profile){
+                    drawerLayout.closeDrawers();
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
+                return true;
+            }
+        });
 
         //Content
         final TextView textView = (TextView) findViewById(R.id.activity_main_row_clicked);

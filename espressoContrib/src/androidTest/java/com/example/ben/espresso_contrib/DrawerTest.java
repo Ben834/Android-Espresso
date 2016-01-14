@@ -4,6 +4,8 @@ import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.rule.ActivityTestRule;
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.example.ben.espresso_contrib.action.NavigationViewActions;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -11,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(JUnit4.class)
@@ -32,6 +36,13 @@ public class DrawerTest {
 
     @Test
     public void navDrawerClick() {
+        //Open the nav drawer
         onView(withId(R.id.activity_main_drawer_layout)).perform(DrawerActions.open());
+
+        //Click on an item
+        onView(withId(R.id.activity_main_navigation_view)).perform(NavigationViewActions.navigateTo(R.id.drawer_profile));
+
+        //Check that the right activity is displayed by checking a view inside it
+        onView(withId(R.id.activity_profile_text)).check(matches(isDisplayed()));
     }
 }

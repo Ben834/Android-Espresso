@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ben.espresso_contrib.MainActivity">
+    tools:context="com.example.ben.espresso_contrib.MainActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--Main content view-->
     <LinearLayout
@@ -33,13 +34,15 @@
     </LinearLayout>
 
     <!--The navigation drawer-->
-    <ListView android:id="@+id/activity_main_left_drawer"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/activity_main_navigation_view"
               android:layout_width="240dp"
               android:layout_height="match_parent"
               android:layout_gravity="start"
               android:choiceMode="singleChoice"
               android:divider="@android:color/transparent"
               android:dividerHeight="0dp"
-              android:background="@android:color/white"/>
+              android:background="@android:color/white"
+              app:menu="@menu/activity_main_menu"/>
 
 </android.support.v4.widget.DrawerLayout>
