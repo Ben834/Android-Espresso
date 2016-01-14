@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.ben.espresso_contrib.ProfileActivity">
+    tools:context="com.ben.testing.espresso.contrib.ProfileActivity">
 
     <TextView
         android:id="@+id/activity_profile_text"
