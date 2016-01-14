@@ -32,6 +32,6 @@ public class DrawerTest {
 
     @Test
     public void navDrawerClick() {
-//        onView(withId(R.id.activity_main_drawer_layout)).perform(DrawerActions.open());
+        onView(withId(R.id.activity_main_drawer_layout)).perform(DrawerActions.open());
     }
 }

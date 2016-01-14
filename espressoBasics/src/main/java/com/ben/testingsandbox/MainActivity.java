@@ -10,10 +10,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String KEY_COUNT = "count";
-    private static final String KEY_EDIT_TEXT = "editText";
 
     private int count = 0;
-    private String text;
     private TextView countView;
 
     @Override
@@ -27,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (savedInstanceState != null) {
             count = savedInstanceState.getInt(KEY_COUNT, 0);
-            text = savedInstanceState.getString(KEY_EDIT_TEXT);
             countView.setText(String.valueOf(count));
         }
     }
@@ -36,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_COUNT, count);
-        outState.putString(KEY_EDIT_TEXT, text);
     }
 
     public void increment() {
