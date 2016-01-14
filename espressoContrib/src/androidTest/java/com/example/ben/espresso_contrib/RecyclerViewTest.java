@@ -51,6 +51,6 @@ public class RecyclerViewTest {
         onView(withId(R.id.activity_main_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(50, click()));
         //Verify that the right item is displayed
-        onView(withId(R.id.activity_main_row_clicked)).check(matches(withText(50)));
+        onView(withId(R.id.activity_main_row_clicked)).check(matches(withText("50")));
     }
 }

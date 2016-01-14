@@ -35,8 +35,7 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     //Contains few additional, useful features for RecyclerViews and NavigationDrawer.
     androidTestCompile("com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion") {
-        exclude module: 'recyclerview-v7'
-        exclude module: 'appcompat-v7'
+        exclude group: 'com.android.support'
     }
 
     // Force usage of support annotations in the test app, since it is internally used by the runner module.
