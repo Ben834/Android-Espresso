@@ -1,7 +1,7 @@
 # Android-Espresso
-A collection of Espresso examples on Android
+A collection of Espresso & Mockito examples on Android
 
-Each module explore an aspect of Espresso.
+Each module explore an aspect of Espresso and/or Mockito.
 
 <b> espressoBasics </b>: Basic Espresso concepts
 
