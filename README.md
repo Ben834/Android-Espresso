@@ -1,4 +1,4 @@
-# Android-Espresso
+# Android-Testing
 A collection of Espresso & Mockito examples on Android
 
 Each module explore an aspect of Espresso and/or Mockito.
