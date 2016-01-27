@@ -10,3 +10,5 @@ Each module explore an aspect of Espresso and/or Mockito.
 <b> espressoIdlingResource</b> Espresso Idling resources examples
 
 <b> espressoIntent </b> : Espresso Intent extension examples
+
+<b> mockitoBasics </b> : Some mockito examples
