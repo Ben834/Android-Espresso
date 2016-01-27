@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.doThrow;
@@ -38,7 +39,7 @@ public class MockitoExamples {
     private User mockedUser;
 
     @Mock
-    private List mockedArrayList;
+    private List<Object> mockedArrayList;
 
     @Before
     public void setup() {
@@ -83,8 +84,9 @@ public class MockitoExamples {
         when(mockedArrayList.get(anyInt())).thenReturn("Paul");
         //stubbing using hamcrest
         when(mockedArrayList.addAll(argThat(new IsListOfTwoElements()))).thenReturn(true);
-        System.out.println(mockedArrayList.addAll(Arrays.asList("Paul", "Gérard")));
+        boolean result = mockedArrayList.addAll(Arrays.asList("Paul", "Gérard"));
         verify(mockedArrayList).addAll(argThat(new IsListOfTwoElements()));
+        assertEquals(result, true);
     }
 
     //Capturing arguments for further assertions. Ok for verification but not for stubbing.
