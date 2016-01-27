@@ -1,1 +1,1 @@
-include ':espressoBasics', ':espressoIntent', ':espressoIdlingRessource', ':espressoContrib'
+include ':espressoBasics', ':espressoIntent', ':espressoIdlingRessource', ':espressoContrib', ':mockitobasics'
