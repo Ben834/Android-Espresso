@@ -11,7 +11,7 @@ public class User {
 
     private String mProfilePicture;
 
-    private User(String uuid, String username, String profilePicture) {
+    public User(String uuid, String username, String profilePicture) {
         mUuid = uuid;
         mUsername = username;
         mProfilePicture = profilePicture;
@@ -39,6 +39,12 @@ public class User {
 
     public void setProfilePicture(String profilePicture) {
         mProfilePicture = profilePicture;
+    }
+
+    public void setUser(User user){
+        mUuid = user.getUuid();
+        mUsername = user.getUsername();
+        mProfilePicture = user.getProfilePicture();
     }
 
 }

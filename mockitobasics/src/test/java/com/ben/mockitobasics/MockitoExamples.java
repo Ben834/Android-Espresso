@@ -4,52 +4,72 @@ import android.test.suitebuilder.annotation.SmallTest;
 
 import com.ben.mockitobasics.model.User;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.argThat;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
+ * @see http://docs.mockito.googlecode.com/hg/org/mockito/Mockito.html#6
  */
 //TODO: Check ArgumentCaptor
 @SmallTest
 public class MockitoExamples {
 
-    //1-Verification
+    @Mock
+    private User mockedUser;
+
+    @Mock
+    private List mockedArrayList;
+
+    @Before
+    public void setup() {
+        initMocks(this);
+    }
+
     @Test
     public void simpleVerification() {
         //mock creation
-        User mockedUser = mock(User.class);
         //We use the mock object
         mockedUser.setUsername("Paul");
         //verification
         verify(mockedUser).setUsername("Paul");
     }
 
-    //2-Stubbing 1
     @Test
     public void simpleStubbing() {
-        User mockedUser = mock(User.class);
         when(mockedUser.getUsername()).thenReturn("Paul");
         when(mockedUser.getProfilePicture()).thenThrow(new RuntimeException());
         System.out.println(mockedUser.getUsername());
         System.out.println(mockedUser.getProfilePicture());
     }
 
-    //3- Argument matcher - Allow flexible verification or stubbing. Sometimes it can be better to
-    //user ArgumentCaptor
+    @Test
+    public void stubbingVoid() {
+        doThrow(new RuntimeException()).when(mockedArrayList).clear();
+        mockedArrayList.clear();
+    }
+
+
+    //Argument matcher - Allow flexible verification or stubbing. Sometimes it can be better to use ArgumentCaptor
     class IsListOfTwoElements implements ArgumentMatcher<List> {
         @Override
         public boolean matches(Object list) {
@@ -59,7 +79,6 @@ public class MockitoExamples {
 
     @Test
     public void argumentMatcher() {
-        ArrayList mockedArrayList = mock(ArrayList.class);
         //stubbing using built-in anyInt() argument Matcher
         when(mockedArrayList.get(anyInt())).thenReturn("Paul");
         //stubbing using hamcrest
@@ -68,7 +87,15 @@ public class MockitoExamples {
         verify(mockedArrayList).addAll(argThat(new IsListOfTwoElements()));
     }
 
-    //4-Verification order
+    //Capturing arguments for further assertions. Ok for verification but not for stubbing.
+    @Test
+    public void captureArguments(){
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        mockedUser.setUsername("Paul");
+        verify(mockedUser).setUsername(captor.capture());
+        assertEquals("Paul", captor.getValue());
+    }
+
     @Test
     public void verificationOrder() {
         User firstMockedUser = mock(User.class);
@@ -83,10 +110,8 @@ public class MockitoExamples {
         inOrder.verify(secondMockedUser).setUsername("Gérard");
     }
 
-    //5- Making sure interaction never happened
     @Test
     public void verificationNerverHappened() {
-        User mockedUser = mock(User.class);
         mockedUser.setUuid("0");
         //ordinary verification
         verify(mockedUser).setUuid("0");
@@ -94,4 +119,14 @@ public class MockitoExamples {
         verify(mockedUser, never()).setUuid("2");
     }
 
+    //To be used occasionally
+    @Test
+    public void simpleSpy() {
+        User user = new User("0","Franck","nothing");
+        User spy = Mockito.spy(user);
+        //Using the spy calls real methods
+        spy.setUsername("Paul");
+        //and we can make verification
+        verify(spy).setUsername("Paul");
+    }
 }
