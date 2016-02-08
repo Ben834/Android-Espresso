@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.doThrow;
@@ -29,9 +28,11 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
+ *
  * @see http://docs.mockito.googlecode.com/hg/org/mockito/Mockito.html#6
  */
 //TODO: Check ArgumentCaptor
+//TODO: DaggerMock https://github.com/fabioCollini/DaggerMock
 @SmallTest
 public class MockitoExamples {
 
@@ -91,7 +92,7 @@ public class MockitoExamples {
 
     //Capturing arguments for further assertions. Ok for verification but not for stubbing.
     @Test
-    public void captureArguments(){
+    public void captureArguments() {
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         mockedUser.setUsername("Paul");
         verify(mockedUser).setUsername(captor.capture());
@@ -124,7 +125,7 @@ public class MockitoExamples {
     //To be used occasionally
     @Test
     public void simpleSpy() {
-        User user = new User("0","Franck","nothing");
+        User user = new User("0", "Franck", "nothing");
         User spy = Mockito.spy(user);
         //Using the spy calls real methods
         spy.setUsername("Paul");
