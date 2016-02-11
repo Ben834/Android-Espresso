@@ -1,6 +1,6 @@
 package com.ben.mockitobasics;
 
-public class UserManager {
+public class BrewingManager {
     public String getUserName(){
         return "Richard";
     }

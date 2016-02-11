@@ -6,11 +6,13 @@ import com.ben.mockitobasics.model.User;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,8 +33,8 @@ import static org.mockito.MockitoAnnotations.initMocks;
  *
  * @see http://docs.mockito.googlecode.com/hg/org/mockito/Mockito.html#6
  */
-//TODO: Check ArgumentCaptor
-//TODO: DaggerMock https://github.com/fabioCollini/DaggerMock
+
+//@RunWith(MockitoJUnitRunner.class) You can use it if you don't want to call initMocks() manually.
 @SmallTest
 public class MockitoExamples {
 
@@ -123,6 +125,7 @@ public class MockitoExamples {
     }
 
     //To be used occasionally
+    // @Spy or the spy() method can be used to wrap a real object. Every call, unless specified otherwise, is delegated to the object.
     @Test
     public void simpleSpy() {
         User user = new User("0", "Franck", "nothing");

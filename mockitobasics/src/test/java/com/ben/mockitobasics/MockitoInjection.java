@@ -11,17 +11,20 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+/**
+ * A simple example of dependency injection via Mockito.
+ */
 @SmallTest
-public class MainManagerTest {
+public class MockitoInjection {
 
     @Mock
-    UserManager mUserManager;
+    BrewingManager mBrewingManager;
 
     @Mock
-    DataManager mDataManager;
+    PouringManager mPouringManager;
 
     @InjectMocks
-    MainManager mMainManager;
+    CoffeeManager mCoffeeManager;
 
     @Before
     public void setup() {
@@ -29,10 +32,10 @@ public class MainManagerTest {
     }
 
     @Test
-    public void simpleMainManagerTest(){
-        when(mUserManager.getUserName()).thenReturn("Jean-Paul");
-        mMainManager.doSomething();
-        verify(mDataManager).saveUserName("Jean-Paul");
+    public void simpleMainManagerTest() {
+        when(mBrewingManager.getUserName()).thenReturn("Espresso");
+        mCoffeeManager.doSomething();
+        verify(mPouringManager).pour("Espresso");
     }
 
 

@@ -6,8 +6,8 @@ import dagger.Component;
 
 @Singleton
 @Component(
-        modules = MyModule.class
+        modules = CoffeeModule.class
 )
-public interface MyComponent {
-    MainManager myManager();
+public interface CoffeeComponent {
+    CoffeeManager coffeeManager();
 }
