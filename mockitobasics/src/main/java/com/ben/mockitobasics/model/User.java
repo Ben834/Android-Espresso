@@ -47,4 +47,9 @@ public class User {
         mProfilePicture = user.getProfilePicture();
     }
 
+    //Just a static function example
+    public static void someStaticStuff(){
+
+    }
+
 }

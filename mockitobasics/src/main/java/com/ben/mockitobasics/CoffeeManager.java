@@ -13,7 +13,7 @@ public class CoffeeManager {
         mBrewingManager = brewingManager;
     }
 
-    public void doSomething(){
+    public void serveCoffee(){
         String blackCoffee = mBrewingManager.getUserName();
         mPouringManager.pour(blackCoffee);
     }

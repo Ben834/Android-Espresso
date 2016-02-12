@@ -6,13 +6,11 @@ import com.ben.mockitobasics.model.User;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +27,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
- * To work on unit tests, switch the Test Artifact in the Build Variants view.
+ * Basics examples of the Mockito library.
  *
  * @see http://docs.mockito.googlecode.com/hg/org/mockito/Mockito.html#6
  */
@@ -60,6 +58,7 @@ public class MockitoExamples {
 
     @Test
     public void simpleStubbing() {
+//        doThrow(new RuntimeException()).when(mockedUser).someStaticStuff();
         when(mockedUser.getUsername()).thenReturn("Paul");
         when(mockedUser.getProfilePicture()).thenThrow(new RuntimeException());
         System.out.println(mockedUser.getUsername());
@@ -101,6 +100,7 @@ public class MockitoExamples {
         assertEquals("Paul", captor.getValue());
     }
 
+    //We can verify in which order the functions were called.
     @Test
     public void verificationOrder() {
         User firstMockedUser = mock(User.class);
@@ -116,7 +116,7 @@ public class MockitoExamples {
     }
 
     @Test
-    public void verificationNerverHappened() {
+    public void verificationNeverHappened() {
         mockedUser.setUuid("0");
         //ordinary verification
         verify(mockedUser).setUuid("0");
@@ -124,11 +124,13 @@ public class MockitoExamples {
         verify(mockedUser, never()).setUuid("2");
     }
 
-    //To be used occasionally
+    //To be used occasionally. Useful for "partial mocking"
     // @Spy or the spy() method can be used to wrap a real object. Every call, unless specified otherwise, is delegated to the object.
     @Test
     public void simpleSpy() {
+        //We create a real object...
         User user = new User("0", "Franck", "nothing");
+        //...and its spy
         User spy = Mockito.spy(user);
         //Using the spy calls real methods
         spy.setUsername("Paul");

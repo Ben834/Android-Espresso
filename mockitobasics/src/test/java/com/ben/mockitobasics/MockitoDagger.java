@@ -4,8 +4,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import javax.inject.Inject;
-
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 
 import static org.mockito.Mockito.verify;
@@ -13,7 +11,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * A simple demonstration of Dagger Mock
- * <p/>
+ * <p>
  * The advantage of this library is that you don't have to create a test {@link CoffeeComponent}
  * and a test {@link dagger.Module} when you want to test with Dagger.
  *
@@ -30,7 +28,6 @@ public class MockitoDagger {
 
     CoffeeManager mCoffeeManager;
 
-
     //Module subclass and test component are automatically created.
     @Rule
     public DaggerMockRule<CoffeeComponent> rule =
@@ -45,7 +42,7 @@ public class MockitoDagger {
     @Test
     public void simpleMainManagerTest() {
         when(mBrewingManager.getUserName()).thenReturn("Espresso");
-        mCoffeeManager.doSomething();
+        mCoffeeManager.serveCoffee();
         verify(mPouringManager).pour("Espresso");
     }
 

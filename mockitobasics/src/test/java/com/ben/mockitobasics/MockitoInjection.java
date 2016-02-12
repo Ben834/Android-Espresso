@@ -34,7 +34,7 @@ public class MockitoInjection {
     @Test
     public void simpleMainManagerTest() {
         when(mBrewingManager.getUserName()).thenReturn("Espresso");
-        mCoffeeManager.doSomething();
+        mCoffeeManager.serveCoffee();
         verify(mPouringManager).pour("Espresso");
     }
 
